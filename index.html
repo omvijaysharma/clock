@@ -41,35 +41,35 @@
             border: none; /* Remove border */
             color: white; /* Change text color to white */
         }
-        .box span {
-            display: block;
-            margin: 5px 0;
-            color: white; /* Change text color to white for spans */
+        .hour-container, .minute-container, .second-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* Space between digits */
+        }
+        .hour-digit, .minute-digit {
+            font-size: 11rem; /* Set font size to 9rem for hours and minutes */
+            font-weight: bold;
             transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
+        }
+        .second-digit {
+            font-size: 1rem; /* Set font size for seconds to be like the day */
+            position: relative; /* Position relative for alignment */
+            transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
+        }
+        .second-container {
+            position: absolute; /* Position absolutely for bottom right */
+            bottom: 10px; /* Position it 10px from the bottom */
+            right: 10px; /* Position it 10px from the right */
+            display: flex;
+            gap: 1px; /* Change gap between seconds digits to 2px */
         }
         .hidden {
             opacity: 0; /* Fade out */
             transform: scale(1.2); /* Scale up effect */
         }
-        .large {
-            font-size: 9rem; /* Set font size to 9rem */
-            font-weight: bold;
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            margin-bottom: 60px; /* Increase space by 3 times (originally 20px) */
-        }
         .small {
             font-size: 1rem;
             margin-top: 10px;
-        }
-        .seconds {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            font-size: 1em;
-            color: white; /* Change seconds color to white */
         }
 
         @media (min-aspect-ratio: 1/1) {
@@ -85,22 +85,34 @@
     <div class="pahla">
         <div class="box">
             <span class="small" id="current-date"></span>
-            <span class="large" id="current-hour"></span>
+            <div class="hour-container">
+                <span class="hour-digit" id="current-hour-left"></span>
+                <span class="hour-digit" id="current-hour-right"></span>
+            </div>
         </div>
     </div>
     <div class="dusra">
         <div class="box">
             <span class="small" id="current-day"></span>
-            <span class="large" id="current-minute"></span>
-            <span class="seconds" id="current-second"></span>
+            <div class="minute-container">
+                <span class="minute-digit" id="current-minute-left"></span>
+                <span class="minute-digit" id="current-minute-right"></span>
+            </div>
+            <div class="second-container">
+                <span class="second-digit" id="current-second-left"></span>
+                <span class="second-digit" id="current-second-right"></span>
+            </div>
         </div>
     </div>
 </div>
 
 <script>
-    let lastHour = '';
-    let lastMinute = '';
-    let lastSecond = '';
+    let lastHourLeft = '';
+    let lastHourRight = '';
+    let lastMinuteLeft = '';
+    let lastMinuteRight = '';
+    let lastSecondLeft = '';
+    let lastSecondRight = '';
 
     function updateTime() {
         const now = new Date();
@@ -115,22 +127,52 @@
         document.getElementById('current-date').textContent = date;
         document.getElementById('current-day').textContent = day;
 
-        // Animation for hour
-        if (hour !== lastHour) {
-            fadeOutIn('current-hour', hour);
-            lastHour = hour;
+        // Split hour into left and right digits
+        const hourLeft = hour.charAt(0);
+        const hourRight = hour.charAt(1);
+
+        // Animation for hour left
+        if (hourLeft !== lastHourLeft) {
+            fadeOutIn('current-hour-left', hourLeft);
+            lastHourLeft = hourLeft;
         }
 
-        // Animation for minute
-        if (minute !== lastMinute) {
-            fadeOutIn('current-minute', minute);
-            lastMinute = minute;
+        // Animation for hour right
+        if (hourRight !== lastHourRight) {
+            fadeOutIn('current-hour-right', hourRight);
+            lastHourRight = hourRight;
         }
 
-        // Animation for second
-        if (second !== lastSecond) {
-            fadeOutIn('current-second', second);
-            lastSecond = second;
+        // Split minute into left and right digits
+        const minuteLeft = minute.charAt(0);
+        const minuteRight = minute.charAt(1);
+
+        // Animation for minute left
+        if (minuteLeft !== lastMinuteLeft) {
+            fadeOutIn('current-minute-left', minuteLeft);
+            lastMinuteLeft = minuteLeft;
+        }
+
+        // Animation for minute right
+        if (minuteRight !== lastMinuteRight) {
+            fadeOutIn('current-minute-right', minuteRight);
+            lastMinuteRight = minuteRight;
+        }
+
+        // Split second into left and right digits
+        const secondLeft = second.charAt(0);
+        const secondRight = second.charAt(1);
+
+        // Animation for second left
+        if (secondLeft !== lastSecondLeft) {
+            fadeOutIn('current-second-left', secondLeft);
+            lastSecondLeft = secondLeft;
+        }
+
+        // Animation for second right
+        if (secondRight !== lastSecondRight) {
+            fadeOutIn('current-second-right', secondRight);
+            lastSecondRight = secondRight;
         }
     }
 
