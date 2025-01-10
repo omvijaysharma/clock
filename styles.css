@@ -1,0 +1,83 @@
+/* styles.css */
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #282c34; /* Dark background for retro feel */
+    font-family: 'Arial', sans-serif; /* Apply sans-serif font */
+    overflow: hidden; /* Prevent scrolling */
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    height: 100vh; /* Full height of the viewport */
+    width: 100vw; /* Full width of the viewport */
+}
+
+.pahla, .dusra {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the content vertically */
+    flex-grow: 1; /* Allow both divs to grow to take available space */
+}
+
+.box {
+    position: relative;
+    background-color: #444; /* Dark box background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    width: 220px;
+    height: 200px;
+    border: none; /* Remove border */
+    color: white; /* Change text color to white */
+}
+
+.hour-container, .minute-container, .second-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Space between digits */
+}
+
+.hour-digit, .minute-digit {
+    font-size: 11rem; /* Set font size to 11rem for hours and minutes */
+    font-weight: bold;
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
+}
+
+.second-digit {
+    font-size: 1rem; /* Set font size for seconds to be like the day */
+    position: relative; /* Position relative for alignment */
+    transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
+}
+
+.second-container {
+    position: absolute; /* Position absolutely for bottom right */
+    bottom: 10px; /* Position it 10px from the bottom */
+    right: 10px; /* Position it 10px from the right */
+    display: flex;
+    gap: 1px; /* Change gap between seconds digits to 1px */
+}
+
+.hidden {
+    opacity: 0; /* Fade out */
+    transform: scale(1.2); /* Scale up effect */
+}
+
+.small {
+    font-size: 1rem;
+    margin-top: 10px;
+}
+
+@media (min-aspect-ratio: 1/1) {
+    .container {
+        flex-direction: row;
+    }
+}
