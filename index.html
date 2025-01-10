@@ -4,80 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Retro Style Clock</title>
-    <style>
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #282c34; /* Dark background for retro feel */
-            font-family: 'Arial', sans-serif; /* Apply sans-serif font */
-            overflow: hidden; /* Prevent scrolling */
-        }
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-            height: 100vh; /* Full height of the viewport */
-            width: 100vw; /* Full width of the viewport */
-        }
-        .pahla, .dusra {
-            display: flex;
-            justify-content: center;
-            align-items: center; /* Center the content vertically */
-            flex-grow: 1; /* Allow both divs to grow to take available space */
-        }
-        .box {
-            position: relative;
-            background-color: #444; /* Dark box background */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            width: 220px;
-            height: 200px;
-            border: none; /* Remove border */
-            color: white; /* Change text color to white */
-        }
-        .hour-container, .minute-container, .second-container {
-            display: flex;
-            justify-content: center;
-            gap: 10px; /* Space between digits */
-        }
-        .hour-digit, .minute-digit {
-            font-size: 11rem; /* Set font size to 9rem for hours and minutes */
-            font-weight: bold;
-            transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
-        }
-        .second-digit {
-            font-size: 1rem; /* Set font size for seconds to be like the day */
-            position: relative; /* Position relative for alignment */
-            transition: opacity 0.4s ease, transform 0.4s ease; /* Transition for smooth effect */
-        }
-        .second-container {
-            position: absolute; /* Position absolutely for bottom right */
-            bottom: 10px; /* Position it 10px from the bottom */
-            right: 10px; /* Position it 10px from the right */
-            display: flex;
-            gap: 1px; /* Change gap between seconds digits to 2px */
-        }
-        .hidden {
-            opacity: 0; /* Fade out */
-            transform: scale(1.2); /* Scale up effect */
-        }
-        .small {
-            font-size: 1rem;
-            margin-top: 10px;
-        }
-
-        @media (min-aspect-ratio: 1/1) {
-            .container {
-                flex-direction: row;
-            }
-        }
-    </style>
+    <!-- Link to external CSS -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -106,90 +34,8 @@
     </div>
 </div>
 
-<script>
-    let lastHourLeft = '';
-    let lastHourRight = '';
-    let lastMinuteLeft = '';
-    let lastMinuteRight = '';
-    let lastSecondLeft = '';
-    let lastSecondRight = '';
-
-    function updateTime() {
-        const now = new Date();
-        
-        const date = now.toLocaleDateString();
-        const day = now.toLocaleDateString(undefined, { weekday: 'long' });
-        const hour = now.getHours().toString().padStart(2, '0');
-        const minute = now.getMinutes().toString().padStart(2, '0');
-        const second = now.getSeconds().toString().padStart(2, '0');
-
-        // Update date and day without animation
-        document.getElementById('current-date').textContent = date;
-        document.getElementById('current-day').textContent = day;
-
-        // Split hour into left and right digits
-        const hourLeft = hour.charAt(0);
-        const hourRight = hour.charAt(1);
-
-        // Animation for hour left
-        if (hourLeft !== lastHourLeft) {
-            fadeOutIn('current-hour-left', hourLeft);
-            lastHourLeft = hourLeft;
-        }
-
-        // Animation for hour right
-        if (hourRight !== lastHourRight) {
-            fadeOutIn('current-hour-right', hourRight);
-            lastHourRight = hourRight;
-        }
-
-        // Split minute into left and right digits
-        const minuteLeft = minute.charAt(0);
-        const minuteRight = minute.charAt(1);
-
-        // Animation for minute left
-        if (minuteLeft !== lastMinuteLeft) {
-            fadeOutIn('current-minute-left', minuteLeft);
-            lastMinuteLeft = minuteLeft;
-        }
-
-        // Animation for minute right
-        if (minuteRight !== lastMinuteRight) {
-            fadeOutIn('current-minute-right', minuteRight);
-            lastMinuteRight = minuteRight;
-        }
-
-        // Split second into left and right digits
-        const secondLeft = second.charAt(0);
-        const secondRight = second.charAt(1);
-
-        // Animation for second left
-        if (secondLeft !== lastSecondLeft) {
-            fadeOutIn('current-second-left', secondLeft);
-            lastSecondLeft = secondLeft;
-        }
-
-        // Animation for second right
-        if (secondRight !== lastSecondRight) {
-            fadeOutIn('current-second-right', secondRight);
-            lastSecondRight = secondRight;
-        }
-    }
-
-    function fadeOutIn(elementId, newValue) {
-        const element = document.getElementById(elementId);
-        element.classList.add('hidden');
-
-        // Wait for fade-out transition to finish before changing the text
-        setTimeout(() => {
-            element.textContent = newValue;
-            element.classList.remove('hidden'); // Fade back in
-        }, 400); // Match the duration of the fade-out effect
-    }
-
-    setInterval(updateTime, 1000);
-    updateTime();  // Initial call to display the time immediately
-</script>
+<!-- Link to external JavaScript -->
+<script src="script.js"></script>
 
 </body>
 </html>
